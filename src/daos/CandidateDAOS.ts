@@ -9,7 +9,7 @@ class CandidateDOAS {
         })
         .catch((meErr)=>{
             console.log('Error in daos candidate', meErr);
-            res.status(400).json({answer: 'does not word'});
+            res.status(400).json({answer: 'does not word: CandidateDaos'});
         });
     }
 }

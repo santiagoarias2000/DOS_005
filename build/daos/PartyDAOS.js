@@ -16,13 +16,43 @@ const connectionDB_1 = __importDefault(require("../settings/connection/connectio
 class PartyDAOS {
     static getParty(sqlConsult, parameter, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            connectionDB_1.default.result(sqlConsult, parameter)
+            //.result retorna muchos datos
+            yield connectionDB_1.default.result(sqlConsult, parameter)
                 .then((result) => {
                 res.status(200).json(result.rows);
             })
                 .catch((meErr) => {
                 console.log('Error in daos: ', meErr);
-                res.status(400).json({ answer: 'does not word' });
+                res.status(400).json({ answer: 'does not word: PartyDaos' });
+            });
+        });
+    }
+    static createParty(sqlConfirm, sqlCreate, parameter, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            //await funciona solo con metodos async
+            yield connectionDB_1.default.task((consult) => __awaiter(this, void 0, void 0, function* () {
+                //.one retorna muchos datos
+                const data = yield consult.one(sqlConfirm, parameter);
+                if (data.amount == 0) {
+                    return yield consult.one(sqlCreate, parameter);
+                }
+                else {
+                    return { id_party: 0 };
+                }
+                ;
+            }))
+                .then((response) => {
+                if ((response === null || response === void 0 ? void 0 : response.id_party) != 0) {
+                    res.status(200).json({ answer: 'Create party', newCode: response === null || response === void 0 ? void 0 : response.id_party });
+                }
+                else {
+                    res.status(402).json({ answer: 'Error create register it is repeated' });
+                }
+                ;
+            })
+                .catch((meErr) => {
+                console.log('Error in daos: ', meErr);
+                res.status(400).json({ answer: 'Error in create from party.' });
             });
         });
     }

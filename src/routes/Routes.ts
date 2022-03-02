@@ -11,6 +11,7 @@ class Routes{
     public setting(){
         this.routesApi.get('/Candidate', candidateController.getMeCandidate);
         this.routesApi.get('/Party', partyController.getMeParty);
+        this.routesApi.post('/Party/Create', partyController.createMeParty);
     }
 }
 const routes = new Routes();

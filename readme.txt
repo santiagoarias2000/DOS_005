@@ -55,6 +55,9 @@ npm run build(nombre del tsc -w)
 despues se inicia el otro servicio
 npm run dev(nombre de nodemon build/index.js )
 /OneDrive/Documentos/Santiago Universidad/6 SEMESTRE/Desarrollo Servicios/DOS_003 
+//*************************************
+repositorios-> Daos -> controlador -> Rutas
+
 
 //**************************************
 la carpeta build es la que se sube a los servidores tales como AWS o AZURE
